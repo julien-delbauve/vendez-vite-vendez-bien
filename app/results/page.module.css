@@ -1,0 +1,134 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.accent {
+  color: var(--md-sys-color-primary);
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 500px;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 24px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--md-sys-color-outline-variant);
+  border-top-color: var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingDetail {
+  font-size: 12px;
+  color: var(--md-sys-color-outline);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.error h3 {
+  font-size: 20px;
+  color: var(--md-sys-color-error);
+}
+
+.error p {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.backLink {
+  display: inline-block;
+  padding: 10px 24px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.backLink:hover {
+  opacity: 0.9;
+}
+
+.footer {
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--md-sys-color-outline);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.footer a {
+  color: var(--md-sys-color-primary);
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .searchBar {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .content {
+    padding: 16px;
+  }
+}

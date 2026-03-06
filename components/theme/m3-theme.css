@@ -1,0 +1,85 @@
+:root {
+  /* vendezvite.fr brand — deep blue + warm accent */
+  --md-sys-color-primary: #1a56db;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #dbe4ff;
+  --md-sys-color-on-primary-container: #00174b;
+
+  --md-sys-color-secondary: #565e71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #dae2f9;
+  --md-sys-color-on-secondary-container: #131c2c;
+
+  --md-sys-color-tertiary: #e8590c;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #ffdbc9;
+  --md-sys-color-on-tertiary-container: #341100;
+
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+
+  --md-sys-color-surface: #fafbff;
+  --md-sys-color-on-surface: #1a1c20;
+  --md-sys-color-surface-variant: #e0e2ec;
+  --md-sys-color-on-surface-variant: #44474e;
+  --md-sys-color-surface-container: #eef0f9;
+  --md-sys-color-surface-container-low: #f4f5fe;
+  --md-sys-color-surface-container-high: #e8eaf3;
+  --md-sys-color-surface-container-highest: #e2e4ed;
+
+  --md-sys-color-outline: #74777f;
+  --md-sys-color-outline-variant: #c4c6d0;
+  --md-sys-color-inverse-surface: #2f3036;
+  --md-sys-color-inverse-on-surface: #f1f0f7;
+  --md-sys-color-inverse-primary: #b4c5ff;
+  --md-sys-color-shadow: #000000;
+
+  --md-sys-typescale-display-large-font: "Google Sans", "Roboto", sans-serif;
+  --md-sys-typescale-headline-large-font: "Google Sans", "Roboto", sans-serif;
+  --md-sys-typescale-body-large-font: "Roboto", sans-serif;
+
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-small: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #b4c5ff;
+    --md-sys-color-on-primary: #002b75;
+    --md-sys-color-primary-container: #0040a4;
+    --md-sys-color-on-primary-container: #dbe4ff;
+
+    --md-sys-color-secondary: #bec6dc;
+    --md-sys-color-on-secondary: #283141;
+    --md-sys-color-secondary-container: #3e4759;
+    --md-sys-color-on-secondary-container: #dae2f9;
+
+    --md-sys-color-tertiary: #ffb68e;
+    --md-sys-color-on-tertiary: #552100;
+    --md-sys-color-tertiary-container: #7a3300;
+    --md-sys-color-on-tertiary-container: #ffdbc9;
+
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-on-error: #690005;
+    --md-sys-color-error-container: #93000a;
+    --md-sys-color-on-error-container: #ffdad6;
+
+    --md-sys-color-surface: #121318;
+    --md-sys-color-on-surface: #e2e4ed;
+    --md-sys-color-surface-variant: #44474e;
+    --md-sys-color-on-surface-variant: #c4c6d0;
+    --md-sys-color-surface-container: #1e1f25;
+    --md-sys-color-surface-container-low: #1a1c20;
+    --md-sys-color-surface-container-high: #282a30;
+    --md-sys-color-surface-container-highest: #33353b;
+
+    --md-sys-color-outline: #8e9099;
+    --md-sys-color-outline-variant: #44474e;
+    --md-sys-color-inverse-surface: #e2e4ed;
+    --md-sys-color-inverse-on-surface: #2f3036;
+    --md-sys-color-inverse-primary: #1a56db;
+  }
+}

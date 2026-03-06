@@ -1,0 +1,104 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: 28px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+  background: var(--md-sys-color-surface-container-highest);
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.searchIcon {
+  color: var(--md-sys-color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--md-sys-color-on-surface);
+  outline: none;
+  font-family: inherit;
+}
+
+.input::placeholder {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--md-sys-color-outline-variant);
+  border-top-color: var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: var(--md-sys-color-surface-container);
+  border-radius: var(--md-sys-shape-corner-medium);
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  list-style: none;
+  padding: 8px 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.suggestion:hover,
+.suggestion.active {
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+.pinIcon {
+  color: var(--md-sys-color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.suggestionLabel {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--md-sys-color-on-surface);
+}
+
+.suggestionMeta {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 2px;
+}

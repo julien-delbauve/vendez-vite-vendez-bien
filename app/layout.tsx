@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "vendezvite.fr — Prix immobiliers en France",
+  title: "vendezvitevendezbien.fr — Prix immobiliers dans le Sud-Ouest",
   description:
     "Découvrez les prix de vente moyens dans votre quartier. Données officielles DVF du gouvernement français.",
   openGraph: {
-    title: "vendezvite.fr — Prix immobiliers en France",
+    title: "vendezvitevendezbien.fr — Prix immobiliers dans le Sud-Ouest",
     description:
       "Découvrez les prix de vente moyens dans votre quartier. Données officielles DVF.",
     type: "website",

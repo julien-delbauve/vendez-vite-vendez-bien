@@ -45,7 +45,7 @@ function ResultsContent() {
     <main className={styles.main}>
       <header className={styles.header}>
         <a href="/" className={styles.logo}>
-          vendez<span className={styles.accent}>vite</span>.fr
+          vendez<span className={styles.accent}>vite</span>vendez<span className={styles.accent}>bien</span>.fr
         </a>
         <div className={styles.searchBar}>
           <AddressSearch />

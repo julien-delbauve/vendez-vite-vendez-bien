@@ -51,21 +51,21 @@ export default function TransactionTable({ transactions }: Props) {
   if (transactions.length === 0) {
     return (
       <div className={styles.card}>
-        <h3 className={styles.title}>Transactions r\u00E9centes</h3>
-        <p className={styles.empty}>Aucune transaction trouv\u00E9e</p>
+        <h3 className={styles.title}>Transactions récentes</h3>
+        <p className={styles.empty}>Aucune transaction trouvée</p>
       </div>
     );
   }
 
   const sortIndicator = (key: SortKey) => {
     if (sortKey !== key) return "";
-    return sortAsc ? " \u2191" : " \u2193";
+    return sortAsc ? " ↑" : " ↓";
   };
 
   return (
     <div className={styles.card}>
       <h3 className={styles.title}>
-        Transactions r\u00E9centes
+        Transactions récentes
         <span className={styles.count}>({transactions.length})</span>
       </h3>
 
@@ -78,6 +78,7 @@ export default function TransactionTable({ transactions }: Props) {
               </th>
               <th>Adresse</th>
               <th>Type</th>
+              <th>Pièces</th>
               <th
                 onClick={() => handleSort("surface")}
                 className={styles.sortable}
@@ -94,8 +95,9 @@ export default function TransactionTable({ transactions }: Props) {
                 onClick={() => handleSort("pricePerSqm")}
                 className={styles.sortable}
               >
-                Prix/m\u00B2{sortIndicator("pricePerSqm")}
+                Prix/m²{sortIndicator("pricePerSqm")}
               </th>
+              <th>Parcelle</th>
             </tr>
           </thead>
           <tbody>
@@ -104,14 +106,18 @@ export default function TransactionTable({ transactions }: Props) {
                 <td>{tx.date}</td>
                 <td className={styles.addressCell}>{tx.address}</td>
                 <td>{tx.propertyType}</td>
-                <td>{tx.surface > 0 ? `${tx.surface} m\u00B2` : "-"}</td>
+                <td>{tx.rooms ?? "-"}</td>
+                <td>{tx.surface > 0 ? `${tx.surface} m²` : "-"}</td>
                 <td className={styles.priceCell}>
-                  {Math.round(tx.price).toLocaleString("fr-FR")} \u20AC
+                  {Math.round(tx.price).toLocaleString("fr-FR")} €
                 </td>
                 <td>
                   {tx.pricePerSqm > 0
-                    ? `${Math.round(tx.pricePerSqm).toLocaleString("fr-FR")} \u20AC`
+                    ? `${Math.round(tx.pricePerSqm).toLocaleString("fr-FR")} €`
                     : "-"}
+                </td>
+                <td className={styles.parcelleCell} title={tx.idParcelle ?? ""}>
+                  {tx.idParcelle ?? "-"}
                 </td>
               </tr>
             ))}
@@ -126,7 +132,7 @@ export default function TransactionTable({ transactions }: Props) {
             disabled={page === 0}
             className={styles.pageButton}
           >
-            Pr\u00E9c\u00E9dent
+            Précédent
           </button>
           <span className={styles.pageInfo}>
             {page + 1} / {totalPages}

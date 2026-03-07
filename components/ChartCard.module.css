@@ -1,6 +1,6 @@
 .card {
-  background: var(--md-sys-color-surface-container);
-  border-radius: var(--md-sys-shape-corner-large);
+  background: var(--color-card);
+  border-radius: var(--radius-card);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -8,10 +8,11 @@
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 24px;
-  color: var(--md-sys-color-on-surface);
+  color: var(--color-on-surface);
+  letter-spacing: -0.2px;
 }
 
 .chartContainer {
@@ -21,7 +22,7 @@
 
 .empty {
   font-size: 14px;
-  color: var(--md-sys-color-outline);
+  color: var(--color-gray-tertiary);
   text-align: center;
   padding: 40px 0;
 }
@@ -35,7 +36,7 @@
 .statRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-size: 13px;
 }
 
@@ -48,10 +49,21 @@
 
 .statLabel {
   flex: 1;
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--color-gray-secondary);
 }
 
 .statValue {
-  font-weight: 500;
-  color: var(--md-sys-color-on-surface);
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .chartContainer {
+    min-height: 220px;
+  }
 }

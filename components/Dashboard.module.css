@@ -12,16 +12,17 @@
 }
 
 .address {
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 26px;
+  font-weight: 700;
   line-height: 32px;
-  color: var(--md-sys-color-on-surface);
+  color: var(--color-on-surface);
+  letter-spacing: -0.5px;
 }
 
 .meta {
   font-size: 14px;
   line-height: 20px;
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--color-gray-secondary);
 }
 
 .chartRow {
@@ -33,5 +34,16 @@
 @media (max-width: 900px) {
   .chartRow {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    gap: 16px;
+  }
+
+  .address {
+    font-size: 20px;
+    line-height: 26px;
   }
 }

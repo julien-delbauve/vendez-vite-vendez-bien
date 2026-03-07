@@ -17,11 +17,10 @@ function ResultsContent() {
   const city = searchParams.get("city") || "";
   const lat = parseFloat(searchParams.get("lat") || "0");
   const lon = parseFloat(searchParams.get("lon") || "0");
-  const address = searchParams.get("address") || "";
 
   useEffect(() => {
     if (!citycode) {
-      setError("Aucune adresse s\u00E9lectionn\u00E9e");
+      setError("Aucune adresse sélectionnée");
       setLoading(false);
       return;
     }
@@ -57,9 +56,9 @@ function ResultsContent() {
         {loading && (
           <div className={styles.loading}>
             <div className={styles.spinner} />
-            <p>Chargement des donn\u00E9es DVF...</p>
+            <p>Chargement des données DVF...</p>
             <p className={styles.loadingDetail}>
-              Requ\u00EAte en cours via le serveur MCP data.gouv.fr
+              Analyse du marché immobilier en cours...
             </p>
           </div>
         )}
@@ -69,25 +68,25 @@ function ResultsContent() {
             <h3>Erreur</h3>
             <p>{error}</p>
             <a href="/" className={styles.backLink}>
-              Retour \u00E0 la recherche
+              Retour à la recherche
             </a>
           </div>
         )}
 
         {data && !loading && (
-          <Dashboard data={data} lat={lat} lon={lon} address={address} />
+          <Dashboard data={data} lat={lat} lon={lon} />
         )}
       </div>
 
       <footer className={styles.footer}>
-        Source : Demandes de Valeurs Fonci\u00E8res (DVF) — Minist\u00E8re de l&apos;\u00C9conomie
-        &middot; Donn\u00E9es via{" "}
+        Source : Demandes de Valeurs Foncières (DVF) — Ministère de l&apos;Économie
+        &middot; Données via{" "}
         <a
-          href="https://mcp.data.gouv.fr"
+          href="https://www.data.gouv.fr/fr/datasets/5cc1b94a634f4165e96436c1/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          MCP data.gouv.fr
+          data.gouv.fr
         </a>
       </footer>
     </main>

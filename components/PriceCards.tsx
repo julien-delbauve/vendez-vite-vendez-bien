@@ -32,23 +32,23 @@ export default function PriceCards({
   const cards = [
     {
       label: "Prix moyen",
-      value: `${formatPrice(averagePrice)} \u20AC`,
-      detail: `${formatFull(averagePrice)} \u20AC`,
+      value: `${formatPrice(averagePrice)} €`,
+      detail: `${formatFull(averagePrice)} €`,
     },
     {
-      label: "Prix m\u00B2 moyen",
-      value: `${formatFull(averagePricePerSqm)} \u20AC`,
-      detail: "par m\u00B2",
+      label: "Prix m² moyen",
+      value: `${formatFull(averagePricePerSqm)} €`,
+      detail: "par m²",
     },
     {
-      label: "Prix m\u00E9dian",
-      value: `${formatPrice(medianPrice)} \u20AC`,
-      detail: `${formatFull(medianPrice)} \u20AC`,
+      label: "Prix médian",
+      value: `${formatPrice(medianPrice)} €`,
+      detail: `${formatFull(medianPrice)} €`,
     },
     {
       label: "Transactions",
       value: totalTransactions.toLocaleString("fr-FR"),
-      detail: "sur la p\u00E9riode",
+      detail: "sur la période",
     },
   ];
 

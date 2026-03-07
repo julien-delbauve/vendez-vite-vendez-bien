@@ -19,10 +19,19 @@ export interface Transaction {
   rooms?: number;
   lat?: number;
   lon?: number;
+  idParcelle?: string;
 }
 
 export interface YearlyStats {
   year: number;
+  avgPrice: number;
+  avgPricePerSqm: number;
+  medianPrice: number;
+  count: number;
+}
+
+export interface MonthlyStats {
+  label: string; // "Jan 2024", "Fév 2024", etc.
   avgPrice: number;
   avgPricePerSqm: number;
   medianPrice: number;
@@ -46,11 +55,5 @@ export interface DVFResult {
   transactions: Transaction[];
   cityName: string;
   departmentCode: string;
-}
-
-export interface MCPToolResult {
-  content: Array<{
-    type: string;
-    text?: string;
-  }>;
+  dataFreshness: string;
 }

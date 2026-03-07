@@ -16,10 +16,11 @@ interface Props {
 }
 
 const COLORS = [
-  "var(--md-sys-color-primary)",
-  "var(--md-sys-color-tertiary)",
-  "var(--md-sys-color-secondary)",
-  "#7c3aed",
+  "#CDEA68",
+  "#A855F7",
+  "#96A436",
+  "#7C7C8A",
+  "#F59E0B",
 ];
 
 export default function PropertyTypeBreakdown({ data }: Props) {
@@ -27,7 +28,7 @@ export default function PropertyTypeBreakdown({ data }: Props) {
     return (
       <div className={styles.card}>
         <h3 className={styles.title}>Types de biens</h3>
-        <p className={styles.empty}>Pas assez de donn\u00E9es</p>
+        <p className={styles.empty}>Pas assez de données</p>
       </div>
     );
   }
@@ -63,16 +64,17 @@ export default function PropertyTypeBreakdown({ data }: Props) {
             </Pie>
             <Tooltip
               contentStyle={{
-                background: "var(--md-sys-color-surface-container)",
-                border: "1px solid var(--md-sys-color-outline-variant)",
-                borderRadius: "8px",
-                color: "var(--md-sys-color-on-surface)",
+                background: "#FFFFFF",
+                border: "1px solid #E8E8EA",
+                borderRadius: "12px",
+                color: "#1A1A2E",
+                fontFamily: "Space Grotesk",
               }}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               formatter={(_value: any, _name: any, props: any) => {
                 const payload = props.payload;
                 return [
-                  `${payload.value} transactions - Moy: ${Math.round(payload.avgPrice).toLocaleString("fr-FR")} \u20AC`,
+                  `${payload.value} transactions - Moy: ${Math.round(payload.avgPrice).toLocaleString("fr-FR")} €`,
                   payload.name,
                 ];
               }}
@@ -91,7 +93,7 @@ export default function PropertyTypeBreakdown({ data }: Props) {
             />
             <span className={styles.statLabel}>{item.type}</span>
             <span className={styles.statValue}>
-              {Math.round(item.avgPricePerSqm).toLocaleString("fr-FR")} \u20AC/m\u00B2
+              {Math.round(item.avgPricePerSqm).toLocaleString("fr-FR")} €/m²
             </span>
           </div>
         ))}

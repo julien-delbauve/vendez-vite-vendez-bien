@@ -8,49 +8,70 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 20px 24px;
-  background: var(--md-sys-color-surface-container);
-  border-radius: var(--md-sys-shape-corner-large);
-  transition: background-color 0.2s ease;
+  gap: 6px;
+  padding: 22px 24px;
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .card:first-child {
-  background: var(--md-sys-color-primary-container);
+  background: var(--color-brand-primary);
 }
 
 .card:first-child .value {
-  color: var(--md-sys-color-on-primary-container);
+  color: var(--color-gray-primary);
 }
 
 .label {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   line-height: 16px;
-  letter-spacing: 0.5px;
-  color: var(--md-sys-color-on-surface-variant);
+  letter-spacing: 1px;
+  color: var(--color-gray-secondary);
   text-transform: uppercase;
 }
 
 .card:first-child .label {
-  color: var(--md-sys-color-on-primary-container);
-  opacity: 0.8;
+  color: var(--color-gray-primary);
+  opacity: 0.7;
 }
 
 .value {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 36px;
-  color: var(--md-sys-color-on-surface);
+  color: var(--color-gray-primary);
+  letter-spacing: -1px;
 }
 
 .detail {
   font-size: 12px;
   line-height: 16px;
-  color: var(--md-sys-color-outline);
+  color: var(--color-gray-tertiary);
 }
 
 .card:first-child .detail {
-  color: var(--md-sys-color-on-primary-container);
-  opacity: 0.7;
+  color: var(--color-gray-primary);
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .value {
+    font-size: 22px;
+    line-height: 28px;
+  }
 }

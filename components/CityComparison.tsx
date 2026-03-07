@@ -7,6 +7,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from "recharts";
 import { PropertyTypeStats } from "@/lib/types";
@@ -22,7 +23,7 @@ export default function CityComparison({ data, cityName }: Props) {
     return (
       <div className={styles.card}>
         <h3 className={styles.title}>Comparaison par type</h3>
-        <p className={styles.empty}>Pas assez de donn\u00E9es</p>
+        <p className={styles.empty}>Pas assez de données</p>
       </div>
     );
   }
@@ -30,48 +31,61 @@ export default function CityComparison({ data, cityName }: Props) {
   const chartData = data.map((d) => ({
     name: d.type,
     "Prix moyen": Math.round(d.avgPrice),
-    "Prix/m\u00B2": Math.round(d.avgPricePerSqm),
+    "Prix/m²": Math.round(d.avgPricePerSqm),
   }));
 
   return (
     <div className={styles.card}>
       <h3 className={styles.title}>
-        Prix par type de bien \u00E0 {cityName}
+        Prix par type de bien à {cityName}
       </h3>
       <div className={styles.chartContainer}>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--md-sys-color-outline-variant)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E8E8EA" />
             <XAxis
               dataKey="name"
-              tick={{ fill: "var(--md-sys-color-on-surface-variant)", fontSize: 12 }}
+              tick={{ fill: "#7C7C8A", fontSize: 12 }}
             />
             <YAxis
-              tick={{ fill: "var(--md-sys-color-on-surface-variant)", fontSize: 12 }}
+              yAxisId="price"
+              tick={{ fill: "#7C7C8A", fontSize: 12 }}
               tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`}
+            />
+            <YAxis
+              yAxisId="sqm"
+              orientation="right"
+              tick={{ fill: "#7C7C8A", fontSize: 12 }}
+              tickFormatter={(v) => `${v}€`}
             />
             <Tooltip
               contentStyle={{
-                background: "var(--md-sys-color-surface-container)",
-                border: "1px solid var(--md-sys-color-outline-variant)",
-                borderRadius: "8px",
-                color: "var(--md-sys-color-on-surface)",
+                background: "#FFFFFF",
+                border: "1px solid #E8E8EA",
+                borderRadius: "12px",
+                color: "#1A1A2E",
+                fontFamily: "Space Grotesk",
               }}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               formatter={(value: any, name: any) => [
-                `${Number(value).toLocaleString("fr-FR")} \u20AC`,
+                String(name) === "Prix/m²"
+                  ? `${Number(value).toLocaleString("fr-FR")} €/m²`
+                  : `${Number(value).toLocaleString("fr-FR")} €`,
                 String(name),
               ]}
             />
+            <Legend />
             <Bar
+              yAxisId="price"
               dataKey="Prix moyen"
-              fill="var(--md-sys-color-primary)"
-              radius={[6, 6, 0, 0]}
+              fill="#CDEA68"
+              radius={[8, 8, 0, 0]}
             />
             <Bar
-              dataKey="Prix/m\u00B2"
-              fill="var(--md-sys-color-tertiary)"
-              radius={[6, 6, 0, 0]}
+              yAxisId="sqm"
+              dataKey="Prix/m²"
+              fill="#A855F7"
+              radius={[8, 8, 0, 0]}
             />
           </BarChart>
         </ResponsiveContainer>

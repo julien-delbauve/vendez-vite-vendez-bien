@@ -118,7 +118,7 @@ export default function AddressSearch() {
           onChange={(e) => handleInput(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => suggestions.length > 0 && setIsOpen(true)}
-          placeholder="Entrez votre adresse..."
+          placeholder="Entrez votre code postal..."
           className={styles.input}
           role="combobox"
           aria-expanded={isOpen}

@@ -1,0 +1,9 @@
+.chip {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--color-gray-secondary);
+  background: var(--color-outline-variant);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}

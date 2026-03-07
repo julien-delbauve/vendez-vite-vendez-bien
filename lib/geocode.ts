@@ -2,17 +2,26 @@ import { AddressSuggestion } from "./types";
 
 const BAN_API_URL = "https://api-adresse.data.gouv.fr/search";
 
+function looksLikePostcode(query: string): boolean {
+  return /^\d{2,5}$/.test(query.trim());
+}
+
 export async function searchAddress(
   query: string,
   limit: number = 5
 ): Promise<AddressSuggestion[]> {
   if (!query || query.length < 3) return [];
 
+  const isPostcode = looksLikePostcode(query);
+
   const params = new URLSearchParams({
     q: query,
     limit: String(limit),
-    type: "housenumber",
   });
+
+  if (isPostcode) {
+    params.set("type", "municipality");
+  }
 
   const response = await fetch(`${BAN_API_URL}?${params}`);
   if (!response.ok) {

@@ -1,6 +1,6 @@
 .card {
-  background: var(--md-sys-color-surface-container);
-  border-radius: var(--md-sys-shape-corner-large);
+  background: var(--color-card);
+  border-radius: var(--radius-card);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -8,24 +8,25 @@
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 24px;
-  color: var(--md-sys-color-on-surface);
+  color: var(--color-on-surface);
   display: flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: -0.2px;
 }
 
 .count {
   font-size: 13px;
   font-weight: 400;
-  color: var(--md-sys-color-outline);
+  color: var(--color-gray-tertiary);
 }
 
 .empty {
   font-size: 14px;
-  color: var(--md-sys-color-outline);
+  color: var(--color-gray-tertiary);
   text-align: center;
   padding: 40px 0;
 }
@@ -44,12 +45,12 @@
 .table th {
   text-align: left;
   padding: 10px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--md-sys-color-on-surface-variant);
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  color: var(--color-gray-secondary);
+  border-bottom: 2px solid var(--color-outline-variant);
   white-space: nowrap;
 }
 
@@ -59,18 +60,18 @@
 }
 
 .sortable:hover {
-  color: var(--md-sys-color-primary);
+  color: var(--color-brand-secondary);
 }
 
 .table td {
   padding: 10px 12px;
-  color: var(--md-sys-color-on-surface);
-  border-bottom: 1px solid var(--md-sys-color-surface-container-highest);
+  color: var(--color-on-surface);
+  border-bottom: 1px solid var(--color-outline-variant);
   white-space: nowrap;
 }
 
 .table tbody tr:hover {
-  background: var(--md-sys-color-surface-container-high);
+  background: rgba(205, 234, 104, 0.06);
 }
 
 .addressCell {
@@ -80,7 +81,15 @@
 }
 
 .priceCell {
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.parcelleCell {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  color: var(--color-gray-secondary);
 }
 
 .pagination {
@@ -92,27 +101,46 @@
 }
 
 .pageButton {
-  padding: 8px 16px;
-  border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: 20px;
-  background: transparent;
-  color: var(--md-sys-color-primary);
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-gray-primary);
+  color: var(--color-brand-primary);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
 .pageButton:hover:not(:disabled) {
-  background: var(--md-sys-color-primary-container);
+  background: #252540;
 }
 
 .pageButton:disabled {
-  color: var(--md-sys-color-outline);
+  color: var(--color-gray-secondary);
+  background: var(--color-outline-variant);
   cursor: default;
 }
 
 .pageInfo {
   font-size: 13px;
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--color-gray-secondary);
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 16px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 8px;
+    font-size: 12px;
+  }
+
+  .pageButton {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
 }

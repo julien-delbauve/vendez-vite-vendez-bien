@@ -1,8 +1,9 @@
 "use client";
 
 import {
-  LineChart,
+  ComposedChart,
   Line,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -49,62 +50,71 @@ export default function PriceTrends({ yearlyData, monthlyData }: Props) {
     <div className={styles.card}>
       <h3 className={styles.title}>Evolution des prix</h3>
       <div className={styles.chartContainer}>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E8E8EA" />
+        <ResponsiveContainer width="100%" height={380}>
+          <ComposedChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#DDE9E6" />
             <XAxis
               dataKey="label"
-              tick={{ fill: "#7C7C8A", fontSize: useMonthly ? 11 : 12 }}
+              tick={{ fill: "#6B8A99", fontSize: useMonthly ? 10 : 12 }}
               angle={useMonthly ? -45 : 0}
               textAnchor={useMonthly ? "end" : "middle"}
               height={useMonthly ? 50 : 30}
-              interval={0}
+              interval={useMonthly ? 2 : 0}
             />
             <YAxis
               yAxisId="price"
-              tick={{ fill: "#7C7C8A", fontSize: 12 }}
+              tick={{ fill: "#6B8A99", fontSize: 12 }}
               tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`}
             />
             <YAxis
               yAxisId="sqm"
               orientation="right"
-              tick={{ fill: "#7C7C8A", fontSize: 12 }}
+              tick={{ fill: "#6B8A99", fontSize: 12 }}
               tickFormatter={(v) => `${v}€`}
             />
+            <YAxis yAxisId="count" hide />
             <Tooltip
               contentStyle={{
                 background: "#FFFFFF",
-                border: "1px solid #E8E8EA",
+                border: "1px solid #DDE9E6",
                 borderRadius: "12px",
-                color: "#1A1A2E",
+                color: "#1B3A4B",
                 fontFamily: "Space Grotesk",
               }}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              formatter={(value: any, name: any) => [
-                String(name) === "Prix/m²"
-                  ? `${Number(value).toLocaleString("fr-FR")} €/m²`
-                  : `${Number(value).toLocaleString("fr-FR")} €`,
-                String(name),
-              ]}
+              formatter={(value: any, name: any) => {
+                const n = String(name);
+                if (n === "Transactions") return [Number(value).toLocaleString("fr-FR"), n];
+                if (n === "Prix/m²") return [`${Number(value).toLocaleString("fr-FR")} €/m²`, n];
+                return [`${Number(value).toLocaleString("fr-FR")} €`, n];
+              }}
             />
             <Legend />
+            <Bar
+              yAxisId="count"
+              dataKey="Transactions"
+              fill="#B0C4CE"
+              fillOpacity={0.4}
+              radius={[2, 2, 0, 0]}
+              barSize={useMonthly ? 10 : 30}
+            />
             <Line
               yAxisId="price"
               type="monotone"
               dataKey="Prix moyen"
-              stroke="#CDEA68"
+              stroke="#4ECDC4"
               strokeWidth={2.5}
-              dot={{ r: 4, fill: "#CDEA68" }}
+              dot={useMonthly ? false : { r: 4, fill: "#4ECDC4" }}
             />
             <Line
               yAxisId="sqm"
               type="monotone"
               dataKey="Prix/m²"
-              stroke="#A855F7"
+              stroke="#E8874A"
               strokeWidth={2.5}
-              dot={{ r: 4, fill: "#A855F7" }}
+              dot={useMonthly ? false : { r: 4, fill: "#E8874A" }}
             />
-          </LineChart>
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
     </div>

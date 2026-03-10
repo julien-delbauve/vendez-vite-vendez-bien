@@ -42,28 +42,28 @@ export default function CityComparison({ data, cityName }: Props) {
       <div className={styles.chartContainer}>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E8E8EA" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#DDE9E6" />
             <XAxis
               dataKey="name"
-              tick={{ fill: "#7C7C8A", fontSize: 12 }}
+              tick={{ fill: "#6B8A99", fontSize: 12 }}
             />
             <YAxis
               yAxisId="price"
-              tick={{ fill: "#7C7C8A", fontSize: 12 }}
+              tick={{ fill: "#6B8A99", fontSize: 12 }}
               tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`}
             />
             <YAxis
               yAxisId="sqm"
               orientation="right"
-              tick={{ fill: "#7C7C8A", fontSize: 12 }}
+              tick={{ fill: "#6B8A99", fontSize: 12 }}
               tickFormatter={(v) => `${v}€`}
             />
             <Tooltip
               contentStyle={{
                 background: "#FFFFFF",
-                border: "1px solid #E8E8EA",
+                border: "1px solid #DDE9E6",
                 borderRadius: "12px",
-                color: "#1A1A2E",
+                color: "#1B3A4B",
                 fontFamily: "Space Grotesk",
               }}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -78,13 +78,13 @@ export default function CityComparison({ data, cityName }: Props) {
             <Bar
               yAxisId="price"
               dataKey="Prix moyen"
-              fill="#CDEA68"
+              fill="#4ECDC4"
               radius={[8, 8, 0, 0]}
             />
             <Bar
               yAxisId="sqm"
               dataKey="Prix/m²"
-              fill="#A855F7"
+              fill="#E8874A"
               radius={[8, 8, 0, 0]}
             />
           </BarChart>

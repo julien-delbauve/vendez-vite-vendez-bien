@@ -13,16 +13,17 @@ export default function Home() {
           l&apos;immobilier dans le Sud-Ouest
         </h1>
         <p className={styles.subtitle}>
-          Transactions réelles, prix au m², tendances par commune.
+          Un outil mis à votre disposition afin d&apos;analyser les prix réels
+          des dernières transactions par commune.
           <br />
-          De Dax à Biarritz, de Mont-de-Marsan à Bayonne.
+          Utile également pour comparer votre estimation avec les ventes officielles.
         </p>
         <div className={styles.searchWrapper}>
           <AddressSearch />
         </div>
         <div className={styles.stats}>
           <div className={styles.stat}>
-            <span className={styles.statValue}>6 ans</span>
+            <span className={styles.statValue}>3 ans</span>
             <span className={styles.statLabel}>de données</span>
           </div>
           <div className={styles.statDivider} />
@@ -32,8 +33,8 @@ export default function Home() {
           </div>
           <div className={styles.statDivider} />
           <div className={styles.stat}>
-            <span className={styles.statValue}>35 000+</span>
-            <span className={styles.statLabel}>communes</span>
+            <span className={styles.statValue}>2 500+</span>
+            <span className={styles.statLabel}>communes du Sud-Ouest</span>
           </div>
         </div>
       </div>

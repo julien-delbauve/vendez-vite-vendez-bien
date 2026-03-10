@@ -9,17 +9,16 @@
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.08);
+  background: #FFFFFF;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1.5px solid var(--color-outline-variant);
   transition: all 0.2s ease;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .inputWrapper:focus-within {
   border-color: var(--color-brand-primary);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 0 4px rgba(205, 234, 104, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 4px rgba(78, 205, 196, 0.15);
 }
 
 .searchIcon {
@@ -33,7 +32,7 @@
   background: transparent;
   font-size: 16px;
   line-height: 24px;
-  color: var(--color-gray-quaternary);
+  color: var(--color-gray-primary);
   outline: none;
   font-family: inherit;
 }
@@ -63,9 +62,10 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: var(--color-gray-primary);
+  background: #FFFFFF;
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-dropdown);
+  border: 1px solid var(--color-outline-variant);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   list-style: none;
   padding: 8px 0;
   z-index: 100;
@@ -83,7 +83,7 @@
 
 .suggestion:hover,
 .suggestion.active {
-  background: rgba(205, 234, 104, 0.1);
+  background: rgba(78, 205, 196, 0.1);
 }
 
 .pinIcon {
@@ -94,7 +94,7 @@
 .suggestionLabel {
   font-size: 14px;
   line-height: 20px;
-  color: var(--color-gray-quaternary);
+  color: var(--color-gray-primary);
 }
 
 .suggestionMeta {

@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, Suspense, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
 import { DVFResult } from "@/lib/types";
 import Dashboard from "@/components/Dashboard";
 import AddressSearch from "@/components/AddressSearch";
@@ -9,7 +9,6 @@ import styles from "./page.module.css";
 
 function ResultsContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [data, setData] = useState<DVFResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,20 +40,6 @@ function ResultsContent() {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, [citycode, city]);
-
-  const handleSearchArea = useCallback(
-    (newCitycode: string, newCityName: string, newLat: number, newLon: number) => {
-      const params = new URLSearchParams({
-        citycode: newCitycode,
-        city: newCityName,
-        lat: String(newLat),
-        lon: String(newLon),
-        address: newCityName,
-      });
-      router.push(`/results?${params.toString()}`);
-    },
-    [router]
-  );
 
   return (
     <div className={styles.layout}>
@@ -91,8 +76,6 @@ function ResultsContent() {
               data={data}
               lat={lat}
               lon={lon}
-              cityCode={citycode || undefined}
-              onSearchArea={handleSearchArea}
             />
           )}
         </div>

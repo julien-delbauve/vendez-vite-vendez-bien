@@ -21,11 +21,9 @@ interface Props {
   data: DVFResult;
   lat: number;
   lon: number;
-  cityCode?: string;
-  onSearchArea?: (citycode: string, cityName: string, lat: number, lon: number) => void;
 }
 
-export default function Dashboard({ data, lat, lon, cityCode, onSearchArea }: Props) {
+export default function Dashboard({ data, lat, lon }: Props) {
   const [activeSection, setActiveSection] = useState("map");
 
   const handleNavigate = useCallback((section: string) => {
@@ -167,9 +165,6 @@ export default function Dashboard({ data, lat, lon, cityCode, onSearchArea }: Pr
             transactions={filteredTransactions}
             centerLat={lat}
             centerLon={lon}
-            colorByRoom={selectedType === "Appartement" && !selectedRoom}
-            onSearchArea={onSearchArea}
-            currentCityCode={cityCode}
           />
           <DataFreshness date={data.dataFreshness} />
         </div>

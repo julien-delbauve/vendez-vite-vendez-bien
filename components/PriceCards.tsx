@@ -4,7 +4,6 @@ import styles from "./PriceCards.module.css";
 
 interface Props {
   averagePrice: number;
-  medianPrice: number;
   averagePricePerSqm: number;
   totalTransactions: number;
 }
@@ -25,7 +24,6 @@ function formatFull(value: number): string {
 
 export default function PriceCards({
   averagePrice,
-  medianPrice,
   averagePricePerSqm,
   totalTransactions,
 }: Props) {
@@ -39,11 +37,6 @@ export default function PriceCards({
       label: "Prix m² moyen",
       value: `${formatFull(averagePricePerSqm)} €`,
       detail: "par m²",
-    },
-    {
-      label: "Prix médian",
-      value: `${formatPrice(medianPrice)} €`,
-      detail: `${formatFull(medianPrice)} €`,
     },
     {
       label: "Transactions",

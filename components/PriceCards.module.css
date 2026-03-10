@@ -1,77 +1,84 @@
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  width: 100%;
+  display: flex;
+  flex-direction: var(--cards-direction, row);
+  gap: 10px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 22px 24px;
-  background: var(--color-card);
+  gap: 2px;
+  padding: 12px 20px;
+  background: var(--card-bg, var(--color-card));
   border-radius: var(--radius-card);
-  transition: transform 0.15s ease;
-}
-
-.card:hover {
-  transform: translateY(-2px);
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
 }
 
 .card:first-child {
-  background: var(--color-brand-primary);
+  background: var(--card-accent-bg, var(--color-brand-primary));
 }
 
 .card:first-child .value {
-  color: var(--color-gray-primary);
+  color: var(--card-accent-value, var(--color-gray-primary));
 }
 
 .label {
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 600;
-  line-height: 16px;
-  letter-spacing: 1px;
-  color: var(--color-gray-secondary);
+  line-height: 12px;
+  letter-spacing: 0.8px;
+  color: var(--card-label, var(--color-gray-secondary));
   text-transform: uppercase;
 }
 
 .card:first-child .label {
-  color: var(--color-gray-primary);
+  color: var(--card-accent-label, var(--color-gray-primary));
   opacity: 0.7;
 }
 
 .value {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 36px;
-  color: var(--color-gray-primary);
-  letter-spacing: -1px;
+  line-height: 26px;
+  color: var(--card-value, var(--color-gray-primary));
+  letter-spacing: -0.5px;
 }
 
 .detail {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--color-gray-tertiary);
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--card-detail, var(--color-gray-tertiary));
 }
 
 .card:first-child .detail {
-  color: var(--color-gray-primary);
+  color: var(--card-accent-label, var(--color-gray-primary));
   opacity: 0.6;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    flex-direction: row;
+    width: 100%;
   }
 
   .card {
-    padding: 16px;
+    flex: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 8px 12px;
   }
 
   .value {
-    font-size: 22px;
-    line-height: 28px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .detail {
+    display: none;
   }
 }

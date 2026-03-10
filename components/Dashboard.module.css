@@ -35,8 +35,6 @@
   --card-accent-value: var(--color-gray-primary);
   --card-detail: rgba(255, 255, 255, 0.4);
   --cards-direction: column;
-  --freshness-color: rgba(255, 255, 255, 0.6);
-  --freshness-bg: rgba(255, 255, 255, 0.1);
   --filter-pill-padding: 6px 14px;
   --filter-pill-font-size: 13px;
 }

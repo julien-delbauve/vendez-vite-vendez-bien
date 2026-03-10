@@ -24,6 +24,7 @@ a {
 
 /* Leaflet overrides */
 .leaflet-container {
-  border-radius: var(--radius-chip);
+  border-radius: 0;
+  outline: none;
   z-index: 0;
 }

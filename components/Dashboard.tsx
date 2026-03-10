@@ -1,106 +1,212 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { DVFResult } from "@/lib/types";
 import { computeStats, computeMonthlyStats } from "@/lib/compute-stats";
 import PriceCards from "./PriceCards";
 import PriceTrends from "./PriceTrends";
-import PropertyTypeBreakdown from "./PropertyTypeBreakdown";
-import CityComparison from "./CityComparison";
 import NeighborhoodMap from "./NeighborhoodMap";
 import TransactionTable from "./TransactionTable";
 import DataFreshness from "./DataFreshness";
 import FilterBar from "./FilterBar";
 import styles from "./Dashboard.module.css";
 
+const NAV_ITEMS = [
+  { id: "map", icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7", label: "Carte" },
+  { id: "charts", icon: "M3 13h2v8H3zm6-4h2v12H9zm6-6h2v18h-2zm6 10h2v8h-2z", label: "Tendances" },
+  { id: "table", icon: "M3 10h18M3 14h18M3 6h18M3 18h18M10 6v12M17 6v12", label: "Transactions" },
+];
+
 interface Props {
   data: DVFResult;
   lat: number;
   lon: number;
+  cityCode?: string;
+  onSearchArea?: (citycode: string, cityName: string, lat: number, lon: number) => void;
 }
 
-export default function Dashboard({ data, lat, lon }: Props) {
-  const [selectedYears, setSelectedYears] = useState<number[]>([]);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [selectedRooms, setSelectedRooms] = useState<string[]>([]);
+export default function Dashboard({ data, lat, lon, cityCode, onSearchArea }: Props) {
+  const [activeSection, setActiveSection] = useState("map");
+
+  const handleNavigate = useCallback((section: string) => {
+    setActiveSection(section);
+    const el = document.getElementById(`section-${section}`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  const defaultYear = useMemo(() => {
+    const years = data.transactions
+      .map((t) => parseInt(t.date.substring(0, 4)))
+      .filter((y) => y >= 2023);
+    return years.length > 0 ? Math.max(...years) : null;
+  }, [data.transactions]);
+
+  const [selectedYear, setSelectedYear] = useState<number | null>(defaultYear);
+  const [selectedType, setSelectedType] = useState<string | null>("Appartement");
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
 
   const filteredTransactions = useMemo(() => {
     return data.transactions.filter((tx) => {
-      if (selectedYears.length > 0) {
+      if (selectedYear) {
         const year = parseInt(tx.date.substring(0, 4));
-        if (!selectedYears.includes(year)) return false;
+        if (year !== selectedYear) return false;
       }
-      if (selectedTypes.length > 0) {
-        if (!selectedTypes.includes(tx.propertyType)) return false;
+      if (selectedType) {
+        if (tx.propertyType !== selectedType) return false;
       }
-      if (selectedRooms.length > 0 && tx.propertyType === "Appartement") {
+      if (selectedRoom && tx.propertyType === "Appartement") {
         const rooms = tx.rooms || 0;
         const label = rooms >= 5 ? "T5+" : rooms >= 1 ? `T${rooms}` : null;
-        if (!label || !selectedRooms.includes(label)) return false;
+        if (label !== selectedRoom) return false;
       }
       return true;
     });
-  }, [data.transactions, selectedYears, selectedTypes, selectedRooms]);
+  }, [data.transactions, selectedYear, selectedType, selectedRoom]);
+
+  const typeFilteredTransactions = useMemo(() => {
+    return data.transactions.filter((tx) => {
+      const year = parseInt(tx.date.substring(0, 4));
+      if (year < 2023) return false;
+      if (selectedType && tx.propertyType !== selectedType) return false;
+      if (selectedRoom && tx.propertyType === "Appartement") {
+        const rooms = tx.rooms || 0;
+        const label = rooms >= 5 ? "T5+" : rooms >= 1 ? `T${rooms}` : null;
+        if (label !== selectedRoom) return false;
+      }
+      return true;
+    });
+  }, [data.transactions, selectedType, selectedRoom]);
 
   const stats = useMemo(
     () => computeStats(filteredTransactions),
     [filteredTransactions]
   );
 
-  const useMonthly = selectedYears.length === 1 || selectedYears.length === 2;
-
   const monthlyStats = useMemo(
-    () => (useMonthly ? computeMonthlyStats(filteredTransactions) : []),
-    [filteredTransactions, useMonthly]
+    () => computeMonthlyStats(typeFilteredTransactions),
+    [typeFilteredTransactions]
   );
-
-  const hasFilters = selectedYears.length > 0 || selectedTypes.length > 0;
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.header}>
-        <h2 className={styles.address}>Marché immobilier à {data.cityName}</h2>
-        <p className={styles.meta}>
-          {data.cityName} &middot; Département {data.departmentCode}
-        </p>
-        <DataFreshness date={data.dataFreshness} />
-      </div>
+      {/* Left panel: city info, filters, cards, nav */}
+      <aside className={styles.leftPanel}>
+        <a href="/" className={styles.logo}>
+          vendez<span className={styles.accentOrange}>vite</span>vendez<span className={styles.accent}>bien</span>.fr
+        </a>
 
-      <FilterBar
-        transactions={data.transactions}
-        selectedYears={selectedYears}
-        selectedTypes={selectedTypes}
-        selectedRooms={selectedRooms}
-        onYearsChange={setSelectedYears}
-        onTypesChange={setSelectedTypes}
-        onRoomsChange={setSelectedRooms}
-      />
+        <div className={styles.panelHeader}>
+          <h2 className={styles.address}>Marché immobilier à {data.cityName}</h2>
+          <DataFreshness date={data.dataFreshness} />
+        </div>
 
-      <PriceCards
-        averagePrice={stats.averagePrice}
-        medianPrice={stats.medianPrice}
-        averagePricePerSqm={stats.averagePricePerSqm}
-        totalTransactions={hasFilters ? filteredTransactions.length : data.totalTransactions}
-      />
+        <div className={styles.panelSection}>
+          <FilterBar
+            transactions={data.transactions}
+            selectedYear={selectedYear}
+            selectedType={selectedType}
+            selectedRoom={selectedRoom}
+            onYearChange={setSelectedYear}
+            onTypeChange={setSelectedType}
+            onRoomChange={setSelectedRoom}
+          />
+        </div>
 
-      <div className={styles.chartRow}>
-        <PriceTrends yearlyData={stats.byYear} monthlyData={useMonthly ? monthlyStats : undefined} />
-        <PropertyTypeBreakdown data={stats.byPropertyType} />
-      </div>
+        <div className={styles.panelSection}>
+          <PriceCards
+            averagePrice={stats.averagePrice}
+            averagePricePerSqm={stats.averagePricePerSqm}
+            totalTransactions={filteredTransactions.length}
+          />
+        </div>
 
-      <div className={styles.chartRow}>
-        <CityComparison
-          data={stats.byPropertyType}
-          cityName={data.cityName}
+        <div className={styles.panelDivider} />
+
+        <nav className={styles.panelNav}>
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.id}
+              className={`${styles.navItem} ${activeSection === item.id ? styles.navActive : ""}`}
+              onClick={() => handleNavigate(item.id)}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d={item.icon} />
+              </svg>
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className={styles.panelDivider} />
+
+        <a href="/" className={styles.navItem}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <span>Recherche</span>
+        </a>
+      </aside>
+
+      {/* Mobile top controls (hidden on desktop) */}
+      <div className={styles.mobileControls}>
+        <div className={styles.mobileHeader}>
+          <h2 className={styles.mobileAddress}>{data.cityName}</h2>
+          <DataFreshness date={data.dataFreshness} />
+        </div>
+        <FilterBar
+          transactions={data.transactions}
+          selectedYear={selectedYear}
+          selectedType={selectedType}
+          selectedRoom={selectedRoom}
+          onYearChange={setSelectedYear}
+          onTypeChange={setSelectedType}
+          onRoomChange={setSelectedRoom}
         />
-        <NeighborhoodMap
-          transactions={filteredTransactions}
-          centerLat={lat}
-          centerLon={lon}
+        <PriceCards
+          averagePrice={stats.averagePrice}
+          averagePricePerSqm={stats.averagePricePerSqm}
+          totalTransactions={filteredTransactions.length}
         />
       </div>
 
-      <TransactionTable transactions={filteredTransactions} />
+      {/* Right content: map, chart, table */}
+      <div className={styles.rightContent}>
+        <div id="section-map" className={styles.mapSection}>
+          <NeighborhoodMap
+            transactions={filteredTransactions}
+            centerLat={lat}
+            centerLon={lon}
+            colorByRoom={selectedType === "Appartement" && !selectedRoom}
+            onSearchArea={onSearchArea}
+            currentCityCode={cityCode}
+          />
+        </div>
+
+        <div id="section-charts" className={styles.chartsSection}>
+          <PriceTrends yearlyData={[]} monthlyData={monthlyStats} />
+        </div>
+
+        <div id="section-table" className={styles.tableSection}>
+          <TransactionTable transactions={filteredTransactions} />
+        </div>
+      </div>
+
+      {/* Mobile bottom nav */}
+      <div className={styles.mobileNav}>
+        {NAV_ITEMS.map((item) => (
+          <button
+            key={item.id}
+            className={`${styles.mobileNavItem} ${activeSection === item.id ? styles.mobileNavActive : ""}`}
+            onClick={() => handleNavigate(item.id)}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d={item.icon} />
+            </svg>
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

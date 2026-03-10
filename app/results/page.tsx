@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState, Suspense, useCallback } from "react";
 import { DVFResult } from "@/lib/types";
 import Dashboard from "@/components/Dashboard";
 import AddressSearch from "@/components/AddressSearch";
@@ -9,6 +9,7 @@ import styles from "./page.module.css";
 
 function ResultsContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [data, setData] = useState<DVFResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,55 +42,74 @@ function ResultsContent() {
       .finally(() => setLoading(false));
   }, [citycode, city]);
 
+  const handleSearchArea = useCallback(
+    (newCitycode: string, newCityName: string, newLat: number, newLon: number) => {
+      const params = new URLSearchParams({
+        citycode: newCitycode,
+        city: newCityName,
+        lat: String(newLat),
+        lon: String(newLon),
+        address: newCityName,
+      });
+      router.push(`/results?${params.toString()}`);
+    },
+    [router]
+  );
+
   return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <a href="/" className={styles.logo}>
-          vendez<span className={styles.accent}>vite</span>vendez<span className={styles.accent}>bien</span>.fr
-        </a>
+    <div className={styles.layout}>
+      <div className={styles.topBar}>
         <div className={styles.searchBar}>
           <AddressSearch />
         </div>
-      </header>
-
-      <div className={styles.content}>
-        {loading && (
-          <div className={styles.loading}>
-            <div className={styles.spinner} />
-            <p>Chargement des données DVF...</p>
-            <p className={styles.loadingDetail}>
-              Analyse du marché immobilier en cours...
-            </p>
-          </div>
-        )}
-
-        {error && (
-          <div className={styles.error}>
-            <h3>Erreur</h3>
-            <p>{error}</p>
-            <a href="/" className={styles.backLink}>
-              Retour à la recherche
-            </a>
-          </div>
-        )}
-
-        {data && !loading && (
-          <Dashboard data={data} lat={lat} lon={lon} />
-        )}
       </div>
 
-      <footer className={styles.footer}>
-        Source : Demandes de Valeurs Foncières (DVF) — Ministère de l&apos;Économie
-        &middot; Données via{" "}
-        <a
-          href="https://www.data.gouv.fr/fr/datasets/5cc1b94a634f4165e96436c1/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          data.gouv.fr
-        </a>
-      </footer>
-    </main>
+      <main className={styles.main}>
+        <div className={styles.content}>
+          {loading && (
+            <div className={styles.loading}>
+              <div className={styles.spinner} />
+              <p>Chargement des données DVF...</p>
+              <p className={styles.loadingDetail}>
+                Analyse du marché immobilier en cours...
+              </p>
+            </div>
+          )}
+
+          {error && (
+            <div className={styles.error}>
+              <h3>Erreur</h3>
+              <p>{error}</p>
+              <a href="/" className={styles.backLink}>
+                Retour à la recherche
+              </a>
+            </div>
+          )}
+
+          {data && !loading && (
+            <Dashboard
+              data={data}
+              lat={lat}
+              lon={lon}
+              cityCode={citycode || undefined}
+              onSearchArea={handleSearchArea}
+            />
+          )}
+        </div>
+
+        <footer className={styles.footer}>
+          Source : Demandes de Valeurs Foncières (DVF) — Ministère de l&apos;Économie
+          &middot; Données via{" "}
+          <a
+            href="https://www.data.gouv.fr/fr/datasets/5cc1b94a634f4165e96436c1/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            data.gouv.fr
+          </a>
+        </footer>
+      </main>
+    </div>
   );
 }
 
@@ -97,12 +117,14 @@ export default function ResultsPage() {
   return (
     <Suspense
       fallback={
-        <main className={styles.main}>
-          <div className={styles.loading}>
-            <div className={styles.spinner} />
-            <p>Chargement...</p>
-          </div>
-        </main>
+        <div className={styles.layout}>
+          <main className={styles.main}>
+            <div className={styles.loading}>
+              <div className={styles.spinner} />
+              <p>Chargement...</p>
+            </div>
+          </main>
+        </div>
       }
     >
       <ResultsContent />

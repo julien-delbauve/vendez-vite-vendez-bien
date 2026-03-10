@@ -5,15 +5,16 @@ import styles from "./FilterBar.module.css";
 
 interface Props {
   transactions: Transaction[];
-  selectedYears: number[];
-  selectedTypes: string[];
-  selectedRooms: string[];
-  onYearsChange: (years: number[]) => void;
-  onTypesChange: (types: string[]) => void;
-  onRoomsChange: (rooms: string[]) => void;
+  selectedYear: number | null;
+  selectedType: string | null;
+  selectedRoom: string | null;
+  onYearChange: (year: number | null) => void;
+  onTypeChange: (type: string | null) => void;
+  onRoomChange: (room: string | null) => void;
 }
 
 const ROOM_LABELS = ["T1", "T2", "T3", "T4", "T5+"];
+const MIN_YEAR = 2023;
 
 function roomLabel(rooms: number | undefined): string | null {
   if (!rooms || rooms < 1) return null;
@@ -23,18 +24,18 @@ function roomLabel(rooms: number | undefined): string | null {
 
 export default function FilterBar({
   transactions,
-  selectedYears,
-  selectedTypes,
-  selectedRooms,
-  onYearsChange,
-  onTypesChange,
-  onRoomsChange,
+  selectedYear,
+  selectedType,
+  selectedRoom,
+  onYearChange,
+  onTypeChange,
+  onRoomChange,
 }: Props) {
   const availableYears = Array.from(
     new Set(
       transactions
         .map((t) => parseInt(t.date.substring(0, 4)))
-        .filter((y) => y > 0)
+        .filter((y) => y >= MIN_YEAR)
     )
   ).sort();
 
@@ -42,8 +43,7 @@ export default function FilterBar({
     new Set(transactions.map((t) => t.propertyType).filter(Boolean))
   ).sort();
 
-  const showRoomFilter =
-    selectedTypes.includes("Appartement") && selectedTypes.length === 1;
+  const showRoomFilter = selectedType === "Appartement";
 
   const availableRoomLabels = showRoomFilter
     ? ROOM_LABELS.filter((label) =>
@@ -53,93 +53,55 @@ export default function FilterBar({
       )
     : [];
 
-  const toggleYear = (year: number) => {
-    if (selectedYears.includes(year)) {
-      onYearsChange(selectedYears.filter((y) => y !== year));
-    } else {
-      onYearsChange([...selectedYears, year]);
-    }
-  };
-
-  const toggleType = (type: string) => {
-    if (selectedTypes.includes(type)) {
-      onTypesChange(selectedTypes.filter((t) => t !== type));
-    } else {
-      onTypesChange([...selectedTypes, type]);
-    }
-    // Clear room filter when type changes
-    onRoomsChange([]);
-  };
-
-  const toggleRoom = (room: string) => {
-    if (selectedRooms.includes(room)) {
-      onRoomsChange(selectedRooms.filter((r) => r !== room));
-    } else {
-      onRoomsChange([...selectedRooms, room]);
-    }
-  };
-
   return (
     <div className={styles.filterBar}>
       <div className={styles.row}>
         <span className={styles.label}>Année</span>
-        <button
-          className={`${styles.pill} ${selectedYears.length === 0 ? styles.active : ""}`}
-          onClick={() => onYearsChange([])}
-        >
-          Tous
-        </button>
-        {availableYears.map((year) => (
-          <button
-            key={year}
-            className={`${styles.pill} ${selectedYears.includes(year) ? styles.active : ""}`}
-            onClick={() => toggleYear(year)}
-          >
-            {year}
-          </button>
-        ))}
+        <div className={styles.pills}>
+          {availableYears.map((year) => (
+            <button
+              key={year}
+              className={`${styles.pill} ${selectedYear === year ? styles.active : ""}`}
+              onClick={() => onYearChange(selectedYear === year ? null : year)}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className={styles.row}>
         <span className={styles.label}>Type de bien</span>
-        <button
-          className={`${styles.pill} ${selectedTypes.length === 0 ? styles.active : ""}`}
-          onClick={() => {
-            onTypesChange([]);
-            onRoomsChange([]);
-          }}
-        >
-          Tous
-        </button>
-        {availableTypes.map((type) => (
-          <button
-            key={type}
-            className={`${styles.pill} ${selectedTypes.includes(type) ? styles.active : ""}`}
-            onClick={() => toggleType(type)}
-          >
-            {type}
-          </button>
-        ))}
+        <div className={styles.pills}>
+          {availableTypes.map((type) => (
+            <button
+              key={type}
+              className={`${styles.pill} ${selectedType === type ? styles.active : ""}`}
+              onClick={() => {
+                onTypeChange(selectedType === type ? null : type);
+                onRoomChange(null);
+              }}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
       </div>
 
       {showRoomFilter && availableRoomLabels.length > 0 && (
         <div className={styles.row}>
           <span className={styles.label}>Typologie</span>
-          <button
-            className={`${styles.pill} ${selectedRooms.length === 0 ? styles.active : ""}`}
-            onClick={() => onRoomsChange([])}
-          >
-            Tous
-          </button>
-          {availableRoomLabels.map((label) => (
-            <button
-              key={label}
-              className={`${styles.pill} ${selectedRooms.includes(label) ? styles.active : ""}`}
-              onClick={() => toggleRoom(label)}
-            >
-              {label}
-            </button>
-          ))}
+          <div className={styles.pills}>
+            {availableRoomLabels.map((label) => (
+              <button
+                key={label}
+                className={`${styles.pill} ${selectedRoom === label ? styles.active : ""}`}
+                onClick={() => onRoomChange(selectedRoom === label ? null : label)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>

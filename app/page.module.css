@@ -20,7 +20,7 @@
   height: 500px;
   background: radial-gradient(
     ellipse at center,
-    rgba(78, 205, 196, 0.10) 0%,
+    rgba(41, 217, 222, 0.10) 0%,
     rgba(232, 135, 74, 0.05) 40%,
     transparent 70%
   );
@@ -47,8 +47,8 @@
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--color-brand-secondary);
-  background: rgba(78, 205, 196, 0.1);
-  border: 1px solid rgba(78, 205, 196, 0.25);
+  background: rgba(41, 217, 222, 0.1);
+  border: 1px solid rgba(41, 217, 222, 0.25);
   padding: 6px 16px;
   border-radius: var(--radius-pill);
 }
@@ -61,8 +61,25 @@
   letter-spacing: -2.5px;
 }
 
+.logo {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-gray-primary);
+  white-space: nowrap;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+  z-index: 1;
+}
+
+.accentOrange {
+  color: #E8874A;
+}
+
 .accent {
-  color: var(--color-brand-tertiary);
+  color: var(--color-brand-primary);
 }
 
 .subtitle {
@@ -128,25 +145,66 @@
 }
 
 @media (max-width: 600px) {
+  .main {
+    padding: 16px;
+  }
+
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .hero {
+    gap: 18px;
+  }
+
+  .badge {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
   .title {
-    font-size: 36px;
+    font-size: 32px;
     letter-spacing: -1.5px;
   }
 
   .subtitle {
-    font-size: 15px;
+    font-size: 14px;
+  }
+
+  .searchWrapper {
+    max-width: 100%;
   }
 
   .stats {
-    gap: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .statValue {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .statLabel {
+    font-size: 11px;
+  }
+
+  .statDivider {
+    height: 24px;
   }
 
   .glow {
-    width: 400px;
-    height: 300px;
+    width: 300px;
+    height: 250px;
+  }
+
+  .footer {
+    position: relative;
+    bottom: auto;
+    margin-top: 32px;
   }
 }

@@ -111,4 +111,39 @@
     font-size: 13px;
     padding: 8px 16px;
   }
+
+  .legendOverlay {
+    top: auto;
+    right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .map,
+  .mapPlaceholder {
+    height: 45vh;
+    min-height: 260px;
+    max-height: 400px;
+  }
+
+  .legendOverlay {
+    padding: 6px 8px;
+    gap: 4px;
+    max-width: 220px;
+  }
+
+  .legendDot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .legendLabel {
+    font-size: 9px;
+  }
+
+  .searchAreaBtn {
+    bottom: 40px;
+    font-size: 12px;
+    padding: 7px 14px;
+  }
 }

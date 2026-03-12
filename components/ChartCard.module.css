@@ -59,11 +59,22 @@
 
 @media (max-width: 600px) {
   .card {
-    padding: 16px;
-    gap: 12px;
+    padding: 12px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 14px;
   }
 
   .chartContainer {
-    min-height: 220px;
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chartContainer {
+    min-height: 180px;
   }
 }

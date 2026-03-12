@@ -102,9 +102,9 @@ export default function PriceTrends({ yearlyData, monthlyData }: Props) {
               yAxisId="price"
               type="monotone"
               dataKey="Prix moyen"
-              stroke="#4ECDC4"
+              stroke="#29d9de"
               strokeWidth={2.5}
-              dot={useMonthly ? false : { r: 4, fill: "#4ECDC4" }}
+              dot={useMonthly ? false : { r: 4, fill: "#29d9de" }}
             />
             <Line
               yAxisId="sqm"

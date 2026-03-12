@@ -241,6 +241,10 @@
     gap: 10px;
   }
 
+  .mobileAddress {
+    font-size: 16px;
+  }
+
   .mobileNav {
     display: flex;
     position: fixed;
@@ -255,10 +259,10 @@
   }
 
   .chartsSection {
-    padding: 16px;
+    padding: 12px;
   }
 
   .tableSection {
-    padding: 0 16px 16px;
+    padding: 0 12px 12px;
   }
 }

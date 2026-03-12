@@ -14,14 +14,14 @@ interface Props {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  Appartement: "#4ECDC4",
+  Appartement: "#29d9de",
   Maison:      "#E8874A",
   Commercial:  "#F5C26B",
   Terrain:     "#6B8A99",
 };
 
 const ROOM_COLORS: Record<string, string> = {
-  T1: "#4ECDC4",
+  T1: "#29d9de",
   T2: "#3BA89F",
   T3: "#E8874A",
   T4: "#F5C26B",
@@ -48,9 +48,9 @@ function getLabel(tx: Transaction): string {
 function getColor(tx: Transaction, colorByRoom: boolean): string {
   if (colorByRoom && tx.propertyType === "Appartement") {
     const label = getRoomLabel(tx);
-    if (label) return ROOM_COLORS[label] || "#4ECDC4";
+    if (label) return ROOM_COLORS[label] || "#29d9de";
   }
-  return TYPE_COLORS[tx.propertyType] || "#4ECDC4";
+  return TYPE_COLORS[tx.propertyType] || "#29d9de";
 }
 
 const LEGEND_ORDER = ["Appartement", "Maison", "Commercial", "Terrain"];
@@ -214,9 +214,10 @@ function MapInner({
         className={styles.map}
         scrollWheelZoom={false}
         zoomControl={true}
+        attributionControl={false}
       >
         <TileLayer
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+          attribution=""
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         {onSearchArea && (

@@ -4,16 +4,19 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <main className={styles.main}>
+      <a href="/" className={styles.logo}>
+        vendez<span className={styles.accentOrange}>vite</span>vendez<span className={styles.accent}>bien</span>.fr
+      </a>
       <div className={styles.glow} />
       <div className={styles.hero}>
-        <p className={styles.badge}>Landes &middot; Pays Basque &middot; Sud-Ouest</p>
+        <p className={styles.badge}>Landes &middot; Pays Basque &middot; Gironde</p>
         <h1 className={styles.title}>
-          Le <span className={styles.accent}>vrai prix</span> de
+          Le <span className={styles.accentOrange}>vrai prix</span> de
           <br />
           l&apos;immobilier dans le Sud-Ouest
         </h1>
         <p className={styles.subtitle}>
-          Un outil mis à votre disposition afin d&apos;analyser les prix réels
+          Outil gratuit afin d&apos;analyser les prix réels
           des dernières transactions par commune.
           <br />
           Utile également pour comparer votre estimation avec les ventes officielles.
@@ -33,7 +36,7 @@ export default function Home() {
           </div>
           <div className={styles.statDivider} />
           <div className={styles.stat}>
-            <span className={styles.statValue}>2 500+</span>
+            <span className={styles.statValue}>4 500+</span>
             <span className={styles.statLabel}>communes du Sud-Ouest</span>
           </div>
         </div>

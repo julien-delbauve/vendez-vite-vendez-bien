@@ -78,7 +78,7 @@ export default function CityComparison({ data, cityName }: Props) {
             <Bar
               yAxisId="price"
               dataKey="Prix moyen"
-              fill="#4ECDC4"
+              fill="#29d9de"
               radius={[8, 8, 0, 0]}
             />
             <Bar

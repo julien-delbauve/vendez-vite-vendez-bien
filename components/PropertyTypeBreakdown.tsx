@@ -16,11 +16,11 @@ interface Props {
 }
 
 const COLORS = [
-  "#CDEA68",
-  "#A855F7",
-  "#96A436",
-  "#7C7C8A",
-  "#F59E0B",
+  "#29d9de",
+  "#E8874A",
+  "#3BA89F",
+  "#6B8A99",
+  "#F5C26B",
 ];
 
 export default function PropertyTypeBreakdown({ data }: Props) {
@@ -65,9 +65,9 @@ export default function PropertyTypeBreakdown({ data }: Props) {
             <Tooltip
               contentStyle={{
                 background: "#FFFFFF",
-                border: "1px solid #E8E8EA",
+                border: "1px solid #DDE9E6",
                 borderRadius: "12px",
-                color: "#1A1A2E",
+                color: "#1B3A4B",
                 fontFamily: "Space Grotesk",
               }}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any

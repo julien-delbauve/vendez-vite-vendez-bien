@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: var(--color-gray-primary);
+  background: var(--color-surface);
   position: relative;
   overflow: hidden;
 }
@@ -20,8 +20,8 @@
   height: 500px;
   background: radial-gradient(
     ellipse at center,
-    rgba(205, 234, 104, 0.12) 0%,
-    rgba(168, 85, 247, 0.06) 40%,
+    rgba(41, 217, 222, 0.10) 0%,
+    rgba(232, 135, 74, 0.05) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -46,9 +46,9 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--color-brand-primary);
-  background: rgba(205, 234, 104, 0.1);
-  border: 1px solid rgba(205, 234, 104, 0.2);
+  color: var(--color-brand-secondary);
+  background: rgba(41, 217, 222, 0.1);
+  border: 1px solid rgba(41, 217, 222, 0.25);
   padding: 6px 16px;
   border-radius: var(--radius-pill);
 }
@@ -57,8 +57,25 @@
   font-size: 60px;
   font-weight: 700;
   line-height: 1.08;
-  color: #FFFFFF;
+  color: var(--color-gray-primary);
   letter-spacing: -2.5px;
+}
+
+.logo {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-gray-primary);
+  white-space: nowrap;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+  z-index: 1;
+}
+
+.accentOrange {
+  color: #E8874A;
 }
 
 .accent {
@@ -69,7 +86,7 @@
   font-size: 18px;
   line-height: 1.6;
   color: var(--color-gray-secondary);
-  max-width: 480px;
+  max-width: 520px;
 }
 
 .searchWrapper {
@@ -95,7 +112,7 @@
 .statValue {
   font-size: 18px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--color-gray-primary);
 }
 
 .statLabel {
@@ -106,7 +123,7 @@
 .statDivider {
   width: 1px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-outline-variant);
 }
 
 .footer {
@@ -124,29 +141,70 @@
 }
 
 .footer a:hover {
-  color: var(--color-gray-tertiary);
+  color: var(--color-brand-secondary);
 }
 
 @media (max-width: 600px) {
+  .main {
+    padding: 16px;
+  }
+
+  .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .hero {
+    gap: 18px;
+  }
+
+  .badge {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
   .title {
-    font-size: 36px;
+    font-size: 32px;
     letter-spacing: -1.5px;
   }
 
   .subtitle {
-    font-size: 15px;
+    font-size: 14px;
+  }
+
+  .searchWrapper {
+    max-width: 100%;
   }
 
   .stats {
-    gap: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .statValue {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .statLabel {
+    font-size: 11px;
+  }
+
+  .statDivider {
+    height: 24px;
   }
 
   .glow {
-    width: 400px;
-    height: 300px;
+    width: 300px;
+    height: 250px;
+  }
+
+  .footer {
+    position: relative;
+    bottom: auto;
+    margin-top: 32px;
   }
 }

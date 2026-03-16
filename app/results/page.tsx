@@ -29,7 +29,7 @@ function ResultsContent() {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/dvf?citycode=${citycode}&city=${encodeURIComponent(city)}`)
+    fetch(`/api/dvf?citycode=${encodeURIComponent(citycode)}&city=${encodeURIComponent(city)}`)
       .then((res) => {
         if (!res.ok) throw new Error("Erreur serveur");
         return res.json();

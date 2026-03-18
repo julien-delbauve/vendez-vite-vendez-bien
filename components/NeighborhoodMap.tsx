@@ -11,6 +11,8 @@ interface Props {
   colorByRoom?: boolean;
   onSearchArea?: (citycode: string, cityName: string, lat: number, lon: number) => void;
   currentCityCode?: string;
+  onMarkerClick?: () => void;
+  isGated?: boolean;
 }
 
 const TYPE_COLORS: Record<string, string> = {
@@ -147,6 +149,8 @@ function MapInner({
   colorByRoom = false,
   onSearchArea,
   currentCityCode,
+  onMarkerClick,
+  isGated = false,
 }: Props) {
   const [mapComponents, setMapComponents] = useState<{
     MapContainer: typeof import("react-leaflet").MapContainer;
@@ -237,26 +241,29 @@ function MapInner({
               color="rgba(255,255,255,0.8)"
               weight={1.5}
               fillOpacity={0.85}
+              eventHandlers={onMarkerClick ? { click: () => onMarkerClick() } : undefined}
             >
-              <Popup>
-                <strong>{label}</strong>
-                {tx.address && (
-                  <>
-                    <br />
-                    {tx.address}
-                  </>
-                )}
-                <br />
-                {Math.round(tx.price).toLocaleString("fr-FR")} €
-                {tx.surface > 0 && (
-                  <>
-                    <br />
-                    {tx.surface} m² ({Math.round(tx.pricePerSqm).toLocaleString("fr-FR")} €/m²)
-                  </>
-                )}
-                <br />
-                <em>{tx.date}</em>
-              </Popup>
+              {!isGated && (
+                <Popup>
+                  <strong>{label}</strong>
+                  {tx.address && (
+                    <>
+                      <br />
+                      {tx.address}
+                    </>
+                  )}
+                  <br />
+                  {Math.round(tx.price).toLocaleString("fr-FR")} €
+                  {tx.surface > 0 && (
+                    <>
+                      <br />
+                      {tx.surface} m² ({Math.round(tx.pricePerSqm).toLocaleString("fr-FR")} €/m²)
+                    </>
+                  )}
+                  <br />
+                  <em>{tx.date}</em>
+                </Popup>
+              )}
             </CircleMarker>
           );
         })}

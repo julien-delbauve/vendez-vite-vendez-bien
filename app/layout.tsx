@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LeadGateWrapper from "@/components/LeadGateWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -42,7 +43,9 @@ export default function RootLayout({
           crossOrigin=""
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <LeadGateWrapper>{children}</LeadGateWrapper>
+      </body>
     </html>
   );
 }

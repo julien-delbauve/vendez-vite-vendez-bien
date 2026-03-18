@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { DVFResult } from "@/lib/types";
 import { computeStats, computeMonthlyStats } from "@/lib/compute-stats";
+import { useLeadGate } from "@/lib/lead-gate-context";
 import PriceCards from "./PriceCards";
 import PriceTrends from "./PriceTrends";
 import NeighborhoodMap from "./NeighborhoodMap";
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export default function Dashboard({ data, lat, lon, cityCode, onSearchArea }: Props) {
+  const { recordClick, gated, registered } = useLeadGate();
   const [activeSection, setActiveSection] = useState("map");
 
   const handleNavigate = useCallback((section: string) => {
@@ -44,6 +46,16 @@ export default function Dashboard({ data, lat, lon, cityCode, onSearchArea }: Pr
   const [selectedYear, setSelectedYear] = useState<number | null>(defaultYear);
   const [selectedType, setSelectedType] = useState<string | null>("Appartement");
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+
+  const isGated = gated && !registered;
+
+  const handleMarkerClick = useCallback(() => {
+    recordClick({
+      citycode: cityCode,
+      cityName: data.cityName,
+      propertyType: selectedType || undefined,
+    });
+  }, [recordClick, cityCode, data.cityName, selectedType]);
 
   const filteredTransactions = useMemo(() => {
     return data.transactions.filter((tx) => {
@@ -170,6 +182,8 @@ export default function Dashboard({ data, lat, lon, cityCode, onSearchArea }: Pr
             colorByRoom={selectedType === "Appartement" && !selectedRoom}
             onSearchArea={onSearchArea}
             currentCityCode={cityCode}
+            onMarkerClick={handleMarkerClick}
+            isGated={isGated}
           />
           <DataFreshness date={data.dataFreshness} />
         </div>
